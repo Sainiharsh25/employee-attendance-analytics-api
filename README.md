@@ -1,26 +1,62 @@
-# Candidate kit
+# Employee Attendance & Analytics API
 
-Read in this order:
+A REST API built with FastAPI and MongoDB for employee management, attendance tracking, punch-in/punch-out, attendance regularization, and analytics.
 
-1. `PROBLEM_STATEMENT.docx`: what you are asked to do, how it is evaluated.
-2. `openapi.yaml`: the API contract and the business rules (R1 - R10).
-3. `DATA_MODEL.md`: what is stored in MongoDB, with nine sample documents.
-4. `app/main.py`: the starter. Put **all** your code in this one file. It must start with `uvicorn app.main:app --port 8000`.
-5. `REVIEW.md`, `DECISIONS.md`: templates to fill in.
+## Requirements
 
-`sample_data/` holds the nine sample documents as MongoDB Extended JSON; `sample_seed.py` loads them. The grader's dataset is
-much larger and contains cases they do not show.
+- Python 3.10+
+- MongoDB 6.0+
+- Dependencies listed in `requirements.txt`
 
-## Local setup
-```bash
-python -m venv .venv && source .venv/bin/activate
+## Setup
+
+Create and activate a virtual environment, then install dependencies:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-cp .env.example .env            # set MONGO_URI / MONGO_DB (local docker: docker run -p 27017:27017 mongo:7)
-python sample_seed.py
-uvicorn app.main:app --port 8000 --reload
 ```
-MongoDB **6.0 or newer** is required (the grader uses 7.0). MongoDB Atlas free tier (M0) works.
 
-## Submit
-A public Git repository with `app/main.py`, `requirements.txt`, `REVIEW.md`, `DECISIONS.md` and a short `README.md`.
-No `.env`, no secrets, no Dockerfile.
+Configure the MongoDB connection using environment variables:
+
+```powershell
+$env:MONGO_URI = "mongodb://localhost:27017"
+$env:MONGO_DB = "attendance_db"
+```
+
+Start the API:
+
+```powershell
+python -m uvicorn app.main:app --port 8000
+```
+
+The application creates its indexes at startup. MongoDB must be reachable for the API to operate.
+
+## API Documentation
+
+- Health check: `GET /health`
+- Employee management: `/employees`
+- Attendance and punch operations: `/attendance`
+- Monthly employee analytics: `/analytics/employees/{emp_code}/monthly`
+- Department summary: `/analytics/departments/summary`
+- Late leaderboard: `/analytics/leaderboard/late`
+- Department trend: `/analytics/departments/{department}/trend`
+- Query execution plans: `/admin/explain/{endpoint}`
+
+Interactive API documentation is available at `/docs`.
+
+## Error Handling
+
+The API uses HTTP 404 for missing resources, HTTP 409 for conflicts, and HTTP 422 for invalid input.
+
+## Project Files
+
+- `app/main.py` — application, models, routes, and MongoDB aggregation pipelines
+- `requirements.txt` — Python dependencies
+- `REVIEW.md` — starter defect review
+- `DECISIONS.md` — implementation decisions
+
+## Configuration and Security
+
+Do not commit `.env` files, credentials, database dumps, or other secrets. Configure database connection details through environment variables.
