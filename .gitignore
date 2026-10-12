@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.coverage
+htmlcov/
+
+sample_data/
+sample_seed.py
+openapi.yaml
+DATA_MODEL.md
+PROBLEM_STATEMENT.docx
