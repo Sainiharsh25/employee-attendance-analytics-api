@@ -2,11 +2,6 @@
 
 A REST API built with FastAPI and MongoDB for employee management, attendance tracking, punch-in/punch-out, attendance regularization, and analytics.
 
-## Author
-
-**Harsh Saini**
-
-GitHub: [Sainiharsh25](https://github.com/Sainiharsh25)
 
 ## Requirements
 
