@@ -5,7 +5,7 @@ A REST API built with FastAPI and MongoDB for employee management, attendance tr
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.11+
 - MongoDB 6.0+
 - Dependencies listed in `requirements.txt`
 
